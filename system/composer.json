@@ -1,0 +1,13 @@
+{
+    "require": {
+        "aura/router": "^2.3",
+        "league/url": "^3.3",
+        "aura/autoload": "^2.0",
+        "php-console/php-console": "^3.1"
+    },
+    "autoload": {
+      "psr-4": {
+        "Application\\": "../app/classes"
+      }
+    }
+}
