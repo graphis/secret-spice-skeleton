@@ -36,15 +36,15 @@ $system = '../system';
 
 /**
  * Set the PHP error reporting level. If you set this in php.ini, you remove this.
- * Dev:			E_ALL | E_STRICT
- * Production:	E_ALL ^ E_NOTICE
- * PHP >= 5.3	E_ALL & ~E_DEPRECATED
+ * Dev: E_ALL | E_STRICT
+ * Production: E_ALL ^ E_NOTICE
+ * PHP >= 5.3  E_ALL & ~E_DEPRECATED
  */
 error_reporting(E_ALL | E_STRICT);
 
 // Get the start time and memory for use later
-defined('FUEL_START_TIME') or define('FUEL_START_TIME', microtime(true));
-defined('FUEL_START_MEM') or define('FUEL_START_MEM', memory_get_usage());
+defined('APP_START_TIME') or define('APP_START_TIME', microtime(true));
+defined('APP_START_MEM') or define('APP_START_MEM', memory_get_usage());
 
 
 
@@ -129,8 +129,8 @@ echo $url, PHP_EOL;
 
 
 			
-		echo 'time    : '.round(microtime(true)-FUEL_START_TIME, 4).'<br/>';
-		echo 'mem     : '.round((memory_get_usage()-FUEL_START_MEM)/1024/1024, 4).'<br/>';
-		echo 'mem peak: '.round((memory_get_peak_usage()-FUEL_START_MEM)/1024/1024, 4).'<br/>';	
+		echo 'time    : '.round(microtime(true)-APP_START_TIME, 4).'<br/>';
+		echo 'mem     : '.round((memory_get_usage()-APP_START_MEM)/1024/1024, 4).'<br/>';
+		echo 'mem peak: '.round((memory_get_peak_usage()-APP_START_MEM)/1024/1024, 4).'<br/>';	
 
 
