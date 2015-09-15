@@ -1,11 +1,8 @@
 <?php
 /**
  *
- * index.php -- skeleton
- * index.php is responsible to set up application enviroment paths,
- * composer autoloader, and call bootstrap
+ * setting up enviroment paths
  *
- * @package my_application
  * @version 1.0
  * @license http://opensource.org/licenses/bsd-license.php BSD
  * @copyright 2015 Zsolt Sándor
@@ -21,8 +18,19 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.php/$1 [QSA,L]
 */
 
+/**
+ * Set the PHP error reporting level. If you set this in php.ini, you remove this.
+ * Dev: E_ALL | E_STRICT
+ * Production: E_ALL ^ E_NOTICE
+ * PHP >= 5.3  E_ALL & ~E_DEPRECATED
+ */
+error_reporting(E_ALL | E_STRICT);
 
-
+/**
+ * Get the start time and memory for use later
+ */
+define('APP_START_TIME', microtime(true));
+define('APP_START_MEM', memory_get_usage());
 
 /**
  * Relative path to the application directory.
@@ -35,38 +43,30 @@ $application = '../app';
 $system = '../system';
 
 /**
- * Set the PHP error reporting level. If you set this in php.ini, you remove this.
- * Dev: E_ALL | E_STRICT
- * Production: E_ALL ^ E_NOTICE
- * PHP >= 5.3  E_ALL & ~E_DEPRECATED
- */
-error_reporting(E_ALL | E_STRICT);
-
-// Get the start time and memory for use later
-defined('APP_START_TIME') or define('APP_START_TIME', microtime(true));
-defined('APP_START_MEM') or define('APP_START_MEM', memory_get_usage());
-
-
-
-/**
  * Application document root
  */
 // Set the full path to the docroot
 define('DOCROOT', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 
-// Make the application relative to the docroot, for symlink'd index.php
+/**
+ * Make the application relative to the docroot, for symlink'd index.php
+ */
 if ( ! is_dir($application) AND is_dir(DOCROOT.$application))
 {
 	$application = DOCROOT.$application;
 }
 
-// Make the system relative to the docroot, for symlink'd index.php
+/**
+ * Make the system relative to the docroot, for symlink'd index.php
+ */
 if ( ! is_dir($system) AND is_dir(DOCROOT.$system))
 {
 	$system = DOCROOT.$system;
 }
 
-// Define the absolute paths for configured directories
+/**
+ * Define the absolute paths for configured directories
+ */
 define('APPPATH', realpath($application).DIRECTORY_SEPARATOR);
 define('SYSPATH', realpath($system).DIRECTORY_SEPARATOR);
 
@@ -75,11 +75,16 @@ unset($application, $system);
 
 
 
-// Kickstart the framework
+// Kickstart
 require SYSPATH.'vendor/autoload.php';
 
 
 
+// end of skeleton
+
+/**
+ * Demo stuff begins here
+ */
 
 define( 'DEBUG', 'TRUE' );
 
