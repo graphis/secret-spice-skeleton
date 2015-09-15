@@ -11,16 +11,29 @@
  * @uses       [PHP cURL](http://php.net/manual/en/book.curl.php)
  */
 
+/*
+$debug = new PHPDebug();
 
+$name = 'sarfraz';
+$fruits = array("banana", "apple", "strawberry", "pineaple");
+
+$user = new stdClass;
+$user->name = "Sarfraz";
+$user->desig = "Sr. Software Engineer";
+$user->lang = "PHP";
+
+$debug->logConsole('$name var', $name, true);
+$debug->logConsole('An array of fruits', $fruits, true);
+$debug->logConsole('$user object', $user, true);
+*/
 
 namespace Application;
 
 
+defined('APP') OR die('No direct access'); // is this really useful?
+
 
 class Debug {
-
-
-
 
 	/**
 	 * Constuct
@@ -28,6 +41,24 @@ class Debug {
 	public function __construct()
 	{
 		//
+		echo '<hr>';
+	}
+
+	/**
+	 * Logs messages/variables/data to browser console from within php
+	 *
+	 * @param $name: message to be shown for optional data/vars
+	 * @param $data: variable (scalar/mixed) arrays/objects, etc to be logged
+	 * @param $$eval: whether to apply eval() to arrays/objects
+	 *
+	 * @return none
+	 */
+	public function printR ($data, $eval = TRUE)
+	{
+		if(defined('DEBUG'))
+		{
+			echo '<pre>' . print_r ($data, $eval) . '<pre>';
+		}
 	}
 
 	/**
@@ -41,9 +72,6 @@ class Debug {
 	 */
 	public function logConsole($name, $data = NULL, $jsEval = FALSE)
 	{
-//		$this->name   = $name;
-//		$this->data   = $data;
-//		$this->jsEval = $jsEval;
 
 		if(defined('DEBUG'))
 		{
@@ -57,10 +85,6 @@ class Debug {
 
 	/**
 	 * Logs messages/variables/data to browser console from within php
-	 *
-	 * @param $name: message to be shown for optional data/vars
-	 * @param $data: variable (scalar/mixed) arrays/objects, etc to be logged
-	 * @param $jsEval: whether to apply JS eval() to arrays/objects
 	 *
 	 * @return none
 	 */
@@ -85,7 +109,7 @@ class Debug {
 		{
 			$data = json_encode($data);
 		}
-			
+
 		// sanitalize
 		$data = $data ? $data : '';
 		$search_array = array("#'#", '#""#', "#''#", "#\n#", "#\r\n#");
@@ -94,49 +118,17 @@ class Debug {
 		$data = ltrim(rtrim($data, '"'), '"');
 		$data = $isevaled ? $data : ($data[0] === "'") ? $data : "'" . $data . "'";
 
-		extract($data, $name, $type);
-
+		// load view
 		$js = include APPPATH . 'views/util/log.php';
-		
 
-
-		// echo $js;
 	 }
 
-
-
-
-
-
-
-
-
+ 	/**
+ 	 * Destruct
+ 	 */
+ 	public function __destruct()
+ 	{
+ 		echo '<hr>';
+ 	}
 
 }
- 
- 
-/*
-$debug = new PHPDebug();
-
-$name = 'sarfraz';
-$fruits = array("banana", "apple", "strawberry", "pineaple");
-
-$user = new stdClass;
-$user->name = "Sarfraz";
-$user->desig = "Sr. Software Engineer";
-$user->lang = "PHP";
-
-$debug->logConsole('$name var', $name, true);
-$debug->logConsole('An array of fruits', $fruits, true);
-$debug->logConsole('$user object', $user, true);
-*/
-
-
-
-
-
-
-
-
-
-//
