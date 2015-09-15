@@ -4,15 +4,15 @@
 	# Make sure directory listing is disabled
 	Options +FollowSymLinks -Indexes
 	RewriteEngine On
-#	RewriteBase /
+	# RewriteBase /
 
 	# Protect hidden files from being viewed
 	<Files .*>
-    	Order Deny,Allow
-    	Deny From All
+	Order Deny,Allow
+	Deny From All
 	</Files>
 
-	# Protect application and system files from being viewed
+	# Protect resources from being viewed
 	RewriteRule ^(resources)\b - [F,L]
 
 	# Remove index.php from URL		
@@ -21,9 +21,8 @@
 	# Send request via index.php (again, not if its a real file or folder)
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_FILENAME} !-f
-#	RewriteRule ^(.*)$ index.php/$1 [QSA,L]
+	# RewriteRule ^(.*)$ index.php/$1 [QSA,L]
 
-# opt?
 	# deal with php5-cgi first
 	<IfModule mod_fcgid.c>
 		RewriteRule ^(.*)$ index.php?/$1 [QSA,L]
